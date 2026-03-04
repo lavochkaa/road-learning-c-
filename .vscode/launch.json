@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C++: Debug active file",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "preLaunchTask": "C/C++: clang++ build active file"
+    }
+  ]
+}

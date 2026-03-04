@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: ./scripts/run-cpp <file.cpp>"
+  exit 1
+fi
+
+src="$1"
+
+# Allow passing basename without .cpp
+if [[ "$src" != *.cpp ]]; then
+  if [[ -f "${src}.cpp" ]]; then
+    src="${src}.cpp"
+  fi
+fi
+
+if [[ ! -f "$src" ]]; then
+  echo "File not found: $src"
+  exit 1
+fi
+
+case "$src" in
+  *.cpp) ;;
+  *)
+    echo "Expected a .cpp file: $src"
+    exit 1
+    ;;
+esac
+
+build_dir="build"
+mkdir -p "$build_dir"
+out="$build_dir/$(basename "${src%.cpp}")"
+
+g++ -std=c++17 -Wall -Wextra "$src" -o "$out"
+"./$out"
